@@ -91,3 +91,30 @@ for i, class_probs in enumerate(probabilities):
 
 
 
+from sklearn.naive_bayes import GaussianNB
+import numpy as np
+
+# ダミーデータとラベルの生成
+X = np.random.rand(100, 10)  # 例として10個の特徴を持つ100個のデータ
+y = np.random.randint(30, size=100)  # 30種類のクラス
+
+# ナイーブベイズモデルの構築
+naive_bayes_model = GaussianNB()
+
+# モデルの訓練
+naive_bayes_model.fit(X, y)
+
+# ユーザーからの入力データ
+user_input = np.random.rand(1, 10)  # 10個の特徴を持つデータとして仮定
+
+# 分類と確率の取得
+predicted_class = naive_bayes_model.predict(user_input)[0]
+class_probabilities = naive_bayes_model.predict_proba(user_input)[0]
+
+# 結果の表示
+print("Predicted Class:", predicted_class)
+print("Class Probabilities:")
+for i, prob in enumerate(class_probabilities):
+    print(f"Class {i}: {prob}")
+
+
