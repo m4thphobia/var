@@ -30,3 +30,32 @@ for i, tree_predictions in enumerate(predictions_per_tree):
 # それぞれの決定木が分類したクラスをリストに保存
 classes_per_tree = [tree_predictions[0] for tree_predictions in predictions_per_tree]
 print("Classes per Tree:", classes_per_tree)
+
+
+import numpy as np
+from sklearn.decomposition import PCA
+
+# 仮のデータを生成 (60000データポイント x 20特徴量)
+data = np.random.rand(60000, 20)
+
+# PCAの適用
+pca = PCA()
+pca.fit(data)
+
+# 固有値と固有ベクトルを取得
+eigenvalues = pca.explained_variance_
+eigenvectors = pca.components_
+
+# 固有値を大きい順にソート
+sorted_indices = np.argsort(eigenvalues)[::-1]
+sorted_eigenvalues = eigenvalues[sorted_indices]
+sorted_eigenvectors = eigenvectors[sorted_indices]
+
+# 結果の表示
+print("Sorted Eigenvalues:")
+print(sorted_eigenvalues)
+
+print("\nCorresponding Eigenvectors:")
+print(sorted_eigenvectors)
+
+
