@@ -59,3 +59,35 @@ print("\nCorresponding Eigenvectors:")
 print(sorted_eigenvectors)
 
 
+
+
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.datasets import make_classification
+from sklearn.model_selection import train_test_split
+
+# 仮のデータを生成 (ここでは2クラス分類を想定)
+X, y = make_classification(n_samples=1000, n_features=20, n_classes=2, random_state=42)
+
+# データを訓練用とテスト用に分割
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# ランダムフォレストモデルの構築
+rf_model = RandomForestClassifier(n_estimators=100, random_state=42)
+
+# モデルの訓練
+rf_model.fit(X_train, y_train)
+
+# テストデータに対する予測と確率の取得
+predictions = rf_model.predict(X_test)
+probabilities = rf_model.predict_proba(X_test)
+
+# 結果の表示
+print("Predicted Classes:")
+print(predictions)
+
+print("\nClass Probabilities:")
+for i, class_probs in enumerate(probabilities):
+    print(f"Sample {i + 1}: Class {rf_model.classes_[0]}: {class_probs[0]}, Class {rf_model.classes_[1]}: {class_probs[1]}")
+
+
+
